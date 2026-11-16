@@ -98,7 +98,7 @@ int main() {
 
             if (pos == -1){
                 printf("Item não encontrado.\n");
-            }else if (qtd >= quant[pos]) {
+            } {
                 for (int i = pos; i < total - 1; i++){
                     strcpy(nomes[i], nomes[i + 1]);
                     quant[i] = quant[i + 1];
