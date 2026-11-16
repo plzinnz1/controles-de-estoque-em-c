@@ -98,18 +98,34 @@ int main() {
 
             if (pos == -1){
                 printf("Item não encontrado.\n");
-            }else if (qtd >= quant[pos]) {
-                for (int i = pos; i < total - 1; i++){
-                    strcpy(nomes[i], nomes[i + 1]);
-                    quant[i] = quant[i + 1];
-                }
+            }else if (qtd > quant[pos]){
+    printf("Quantidade insuficiente. Saldo disponível: %d\n",
+           quant[pos]);
+}else{
+    quant[pos] -= qtd;
 
-                total--;
-                printf("Item removido do estoque!\n");
-            }else{
-                quant[pos] -= qtd;
-                printf("Quantidade atualizada!\n");
-            }
+    if (quant[pos] == 0){
+        for (int i = pos; i < total - 1; i++){
+            strcpy(nomes[i], nomes[i + 1]);
+            quant[i] = quant[i + 1];
+        }
+
+        total--;
+        printf("Item removido do estoque!\n");
+    }else{
+        printf("Quantidade atualizada!\n");
+    }
+
+    arquivo = fopen("inventory.txt", "w");
+
+    if (arquivo != NULL) {
+        for (int i = 0; i < total; i++) {
+            fprintf(arquivo, "%s\n%d\n", nomes[i], quant[i]);
+        }
+
+        fclose(arquivo);
+    }
+}
 
             arquivo = fopen("inventory.txt", "w");
 
